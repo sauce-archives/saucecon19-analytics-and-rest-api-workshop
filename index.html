@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Test Charts</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<h1>Test Charts</h1>
+<p><small>Chart.js with Sauce Analytics API</small></p>
+<!--dynamic chart-->
+<div class="wrapper">
+    <h3>Browser Tests in Last 24 Hours</h3>
+    <p>2hr intervals</p>
+    <canvas id="testChart" width="800" height="450"></canvas>
+</div>
+<div class="wrapper">
+    <h3>Browser Failures in Last 24 Hours</h3>
+    <p>2hr intervals</p>
+    <canvas id="failureChart" width="800" height="450"></canvas>
+</div>
+</body>
+</html>

@@ -1,0 +1,1 @@
+// JS code for exercise 6 goes here
