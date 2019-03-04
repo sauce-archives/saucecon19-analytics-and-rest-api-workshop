@@ -2,7 +2,23 @@
 node_modules
 package-lock.json
 
+# remove .idea files
+**/.idea
+
+# Log files
+*.log
+
+# DS_Store
+*.DS_Store
+
+# virtual machine crash logs
+hs_err_pid*
+
+# static.json files
 user.json
 1hour.json
 trends.json
 insights.json
+
+# WebStorm Workspace config
+workspace.xml
