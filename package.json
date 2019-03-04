@@ -2,7 +2,7 @@
   "name": "saucecon19-analytics-and-rest-api-workshop",
   "version": "1.0.0",
   "description": "exercises for saucecon workshop",
-  "main": "chart.js",
+  "main": "index.js",
   "scripts": {
     "test": "npm test"
   },
