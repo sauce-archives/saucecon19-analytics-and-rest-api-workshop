@@ -1,9 +1,12 @@
-#Exercise 1: Accessing the REST API
+# Exercise 1: Accessing the REST API
 ## Part One: Gather Your SauceLabs.com Credentials
 
 1. Checkout branch `01_access_api`
 2. Open an internet browser and login to [www.saucelabs.com](https://www.saucelabs.com)
-3. Open our **Account** tab and navigate to the **User Settings** section
+3. Open our **Account** tab and navigate to the **User Settings** section:
+    
+    ![User Settings](images/user-settings.png)
+    
 4. Copy and paste your **Username** and Sauce Labs **Access Key** to the local clipboard
 5. In your IDE or a command terminal run the following commands and replace the values with the data copied to the clipboard:
     ###### Mac OSX:
@@ -38,18 +41,25 @@
 
 
 ## Part Two: Set Envrionment Variables
-1. Open `index.js` in your IDE or editor
-2. Set the following variables
+##### Manual Example:
+```
+curl -u $SAUCE_USERNAME:$SAUCE_ACCESS_KEY \
+https://saucelabs.com/rest/v1/users/$SAUCE_USERNAME
+```
+##### Programmatic Example:
+
+1. Open `js-examples/users.js` in your IDE or editor
+2. Set the following constants:
     ```
-    var username = process.env.SAUCE_USERNAME;
-    var accessKey = process.env.SAUCE_ACCESS_KEY;
+    const username = process.env.SAUCE_USERNAME;
+    const accessKey = process.env.SAUCE_ACCESS_KEY;
     ```
-3. Set a variable for the baseURL, and the test endpoint of the Sauce Labs RESTAPI
+3. Set constants for the baseURL, and the `user` endpoint of the Sauce Labs REST API
     ```
-    var baseURL = 'https://' + username + ':' + accessKey + '@';
-    var userAPI =  'saucelabs.com/rest/v1/users/' + username;
+    const baseURL = 'https://' + username + ':' + accessKey + '@';
+    const userAPI =  'saucelabs.com/rest/v1/users/' + username;
     ```
-4. Set a constructor function to test the REST API:
+4. Set a function expression our REST API test:
 
     ```
     const axios = require("axios");
@@ -66,25 +76,26 @@
     testAPI();
     ```
     > `axios` is an external library used for constructing [Promise based](https://medium.com/dev-bits/writing-neat-asynchronous-node-js-code-with-promises-32ed3a4fd098) HTTP requests, specifically for consuming exteral REST API endpoints. Click the [following link](https://www.npmjs.com/package/axios) for more information on the `axios` library.
-5. Run the function using the IDE commands or:
+5. Run the script using node commands:
     ```
-    node index.js
+    node js-examples/users.js
     ```
-5. The console output should display a JSON response like the following:
+6. The console output should display a JSON response like the following:
     ```
-    { username: 'SAUCE_USERNAME',
-      vm_lockdown: false,
-      new_email: null,
-      last_name: 'Your Last Name',
-      tunnels_lockdown: false,
-      parent: null,
-      subaccount_limit: 3,
-      team_management: false,
-      creation_time: 1543341104,
-      user_type: 'invoiced',
-      monthly_minutes: { manual: 'infinite', automated: 'infinite' },
-      prevent_emails: [ 'marketing', 'billing' ],
-      performance_enabled: false,
-      is_admin: null,
+    {  
+       "username":"xxxxxx",
+       "vm_lockdown":false,
+       "new_email":null,
+       "last_name":"xxxxxx",
+       "tunnels_lockdown":false,
+       "parent":null,
+       "subaccount_limit":3,
+       "team_management":false,
+       "creation_time":1543341104,
+       "user_type":"invoiced",
+       "monthly_minutes":{  
+          "manual":"infinite",
+          "automated":"infinite"
+       },
     ...  
     ```

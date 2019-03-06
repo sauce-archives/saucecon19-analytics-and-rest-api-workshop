@@ -1,15 +1,15 @@
 # Getting Started
 ## Prerequisites
 
-Before you begin, consult the parent [README](../README.md#saucecon19-analytics-and-rest-api-worksop) for instructions on how to complete the following:
+Before you begin, consult the parent [README](https://github.com/saucelabs-training/saucecon19-analytics-and-rest-api-workshop/blob/master/README.MD) for instructions on how to complete the following:
 
 * [Install Git](../README.md#install-git)
-* [Install IDE](../README.md#install-ide)
-* [Install NPM](../README.md#install-NPM)
+* [Install NPM](../README.md#install-npm)
+* [Install IDE](../README.md#install-an-ide)
 * [Setup Project](../README.md#setup-the-project)
 
 
-Download the latest [release](https://github.com/saucelabs-training/saucecon19-analytics-and-rest-api-worksop/releases) archive and import the project into your local environment and begin experimenting with the exercises! 
+Download the latest [release](https://github.com/saucelabs-training/saucecon19-analytics-and-rest-api-workshop/releases) archive and import the project into your local environment and begin experimenting with the exercises! 
 
 ## Exercise List
 1. [Accessing the REST API](exercise1.md)
