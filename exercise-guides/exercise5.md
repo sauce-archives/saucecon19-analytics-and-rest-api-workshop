@@ -38,14 +38,7 @@
 
 
 ## Part Two: Set Envrionment Variables
-##### Manual Example:
-```
-curl -u $SAUCE_USERNAME:$SAUCE_ACCESS_KEY \
-https://saucelabs.com/rest/v1/users/$SAUCE_USERNAME
-```
-##### Programmatic Example:
-
-1. Open `users.js` in your IDE or editor
+1. Open `index.js` in your IDE or editor
 2. Set the following variables
     ```
     var username = process.env.SAUCE_USERNAME;
@@ -77,22 +70,21 @@ https://saucelabs.com/rest/v1/users/$SAUCE_USERNAME
     ```
     node index.js
     ```
-6. The console output should display a JSON response like the following:
+5. The console output should display a JSON response like the following:
     ```
-    {  
-       "username":"xxxxxx",
-       "vm_lockdown":false,
-       "new_email":null,
-       "last_name":"xxxxxx",
-       "tunnels_lockdown":false,
-       "parent":null,
-       "subaccount_limit":3,
-       "team_management":false,
-       "creation_time":1543341104,
-       "user_type":"invoiced",
-       "monthly_minutes":{  
-          "manual":"infinite",
-          "automated":"infinite"
-       },
+    { username: 'SAUCE_USERNAME',
+      vm_lockdown: false,
+      new_email: null,
+      last_name: 'Your Last Name',
+      tunnels_lockdown: false,
+      parent: null,
+      subaccount_limit: 3,
+      team_management: false,
+      creation_time: 1543341104,
+      user_type: 'invoiced',
+      monthly_minutes: { manual: 'infinite', automated: 'infinite' },
+      prevent_emails: [ 'marketing', 'billing' ],
+      performance_enabled: false,
+      is_admin: null,
     ...  
     ```
