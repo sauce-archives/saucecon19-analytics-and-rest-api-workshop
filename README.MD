@@ -99,11 +99,11 @@ integration/continuous development toolchain.
     ```
     cd saucecon2019-workshops
     ```
-    * Clone the project repository from [https://github.com/saucelabs-training/saucecon19-analytics-and-rest-api-worksop](https://github.com/saucelabs-training/saucecon19-analytics-and-rest-api-worksop).
+    * Clone the project repository from [https://github.com/saucelabs-training/saucecon19-analytics-and-rest-api-workshop](https://github.com/saucelabs-training/saucecon19-analytics-and-rest-api-workshop).
     ```
-    git clone https://github.com/saucelabs-training/saucecon19-analytics-and-rest-api-worksop
+    git clone https://github.com/saucelabs-training/saucecon19-analytics-and-rest-api-workshop
     ```
-    * Checkout branch `01_accessing_the_rest_api`
+    * Checkout branch `01_access_api`
     
 3. **Initialize `package.json`**
     * Either in a command terminal or in the IDE, run **`npm install`** to download all dependencies/libraries

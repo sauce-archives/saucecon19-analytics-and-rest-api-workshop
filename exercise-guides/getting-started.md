@@ -4,8 +4,8 @@
 Before you begin, consult the parent [README](../README.md#saucecon19-analytics-and-rest-api-worksop) for instructions on how to complete the following:
 
 * [Install Git](../README.md#install-git)
-* [Install IDE](../README.md#install-ide)
-* [Install NPM](../README.md#install-NPM)
+* [Install NPM](../README.md#install-npm)
+* [Install IDE](../README.md#install-an-ide)
 * [Setup Project](../README.md#setup-the-project)
 
 
