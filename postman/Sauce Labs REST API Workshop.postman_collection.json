@@ -1,0 +1,1165 @@
+{
+	"info": {
+		"_postman_id": "aabf1a3f-34f4-45d4-b6fa-6fc7f551d3b4",
+		"name": "Sauce Labs REST API Workshop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Account: Get Your User Info",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/users/{{SAUCE_USERNAME}}",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"users",
+						"{{SAUCE_USERNAME}}"
+					]
+				},
+				"description": "Sample Test Request to test Sauce Lab API"
+			},
+			"response": []
+		},
+		{
+			"name": "Account: Add SubAccount",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{  \n    \"username\":\"fake-user2\",\n    \"password\":\"fake-password2\",\n    \"name\":\"fake-user\",\n    \"email\":\"fakeEmail1235@hotmail.com\"\n}"
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/users/{{SAUCE_USERNAME}}",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"users",
+						"{{SAUCE_USERNAME}}"
+					]
+				},
+				"description": "POST Request to add a subaccount"
+			},
+			"response": []
+		},
+		{
+			"name": "Account: Get Sub Account Info",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/users/{{SAUCE_USERNAME}}/subaccounts",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"users",
+						"{{SAUCE_USERNAME}}",
+						"subaccounts"
+					]
+				},
+				"description": "Grab All Sub Account General Information"
+			},
+			"response": []
+		},
+		{
+			"name": "Account: List Sub Accounts",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/users/{{SAUCE_USERNAME}}/list-subaccounts",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"users",
+						"{{SAUCE_USERNAME}}",
+						"list-subaccounts"
+					]
+				},
+				"description": "Grab All Sub Account Information"
+			},
+			"response": []
+		},
+		{
+			"name": "Account: Update an Access Key",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/users/{{SAUCE_SUBACCOUNT}}/accesskey/change",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"users",
+						"{{SAUCE_SUBACCOUNT}}",
+						"accesskey",
+						"change"
+					]
+				},
+				"description": "Rotate a given users access key"
+			},
+			"response": []
+		},
+		{
+			"name": "Job: Get a Specific Job",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/{{SAUCE_USERNAME}}/jobs/{{JOB_ID}}?",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"{{SAUCE_USERNAME}}",
+						"jobs",
+						"{{JOB_ID}}"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "skip",
+							"value": "5",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Query a job based on its ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Job: Get Last 20 Jobs",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/{{SAUCE_USERNAME}}/jobs?limit=20&skip=5",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"{{SAUCE_USERNAME}}",
+						"jobs"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "20"
+						},
+						{
+							"key": "skip",
+							"value": "5"
+						}
+					]
+				},
+				"description": "Get the Last 20 jobs, skipping every 5"
+			},
+			"response": []
+		},
+		{
+			"name": "Job: Update a Job",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{  \n    \"tags\":[  \n        \"testing-rest-api\",\n        \"update-job-test\"\n    ]\n}"
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/{{SAUCE_USERNAME}}/jobs/{{JOB_ID}}",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"{{SAUCE_USERNAME}}",
+						"jobs",
+						"{{JOB_ID}}"
+					]
+				},
+				"description": "Update a Job (adding a tag) based on the specific Job ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Job: Stop a  Job",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": ""
+					},
+					{
+						"key": "",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/{{SAUCE_USERNAME}}/jobs/{{JOB_ID}}/stop",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"{{SAUCE_USERNAME}}",
+						"jobs",
+						"{{JOB_ID}}",
+						"stop"
+					]
+				},
+				"description": "Stop a running job based on the specific Job ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Job: Delete a Job",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": ""
+					},
+					{
+						"key": "",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/{{SAUCE_USERNAME}}/jobs/{{JOB_ID}}",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"{{SAUCE_USERNAME}}",
+						"jobs",
+						"{{JOB_ID}}"
+					]
+				},
+				"description": "Delete a running job based on the specific Job ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Activity: Get User Activity",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/{{SAUCE_USERNAME}}/activity",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"{{SAUCE_USERNAME}}",
+						"activity"
+					]
+				},
+				"description": "Grab Sub Account test activity based on parent and child account info"
+			},
+			"response": []
+		},
+		{
+			"name": "Activity: Grab Usage History",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/users/{{SAUCE_USERNAME}}/usage?start=2018-03-01&send=2018-03-20",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"users",
+						"{{SAUCE_USERNAME}}",
+						"usage"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "2018-03-01"
+						},
+						{
+							"key": "send",
+							"value": "2018-03-20"
+						}
+					]
+				},
+				"description": "Grab user activity based on a specific timeframe"
+			},
+			"response": []
+		},
+		{
+			"name": "Tunnel: Get Tunnels",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/{{SAUCE_USERNAME}}/tunnels",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"{{SAUCE_USERNAME}}",
+						"tunnels"
+					]
+				},
+				"description": "Get tunnels from a specific user"
+			},
+			"response": []
+		},
+		{
+			"name": "Tunnel: Delete a Tunnel",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/{{SAUCE_USERNAME}}/tunnels/{{TUNNEL_ID}}",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"{{SAUCE_USERNAME}}",
+						"tunnels",
+						"{{TUNNEL_ID}}"
+					]
+				},
+				"description": "Delete a Tunnel Based on the Tunnel ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Analytics: Trends In the Past Hour",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/analytics/trends/tests?time_range=1h&interval=5s",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"analytics",
+						"trends",
+						"tests"
+					],
+					"query": [
+						{
+							"key": "time_range",
+							"value": "1h"
+						},
+						{
+							"key": "interval",
+							"value": "5s"
+						}
+					]
+				},
+				"description": "Query the trends endpoint with a time range of 1 hour and an interval parameter of 5 secs"
+			},
+			"response": []
+		},
+		{
+			"name": "Analytics: Trends In the Past Day",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/analytics/trends/tests?time_range=1d&interval=1h",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"analytics",
+						"trends",
+						"tests"
+					],
+					"query": [
+						{
+							"key": "time_range",
+							"value": "1d"
+						},
+						{
+							"key": "interval",
+							"value": "1h"
+						}
+					]
+				},
+				"description": "Query the trends endpoint with a time range of 1 day and an interval parameter of 1 hr"
+			},
+			"response": []
+		},
+		{
+			"name": "Analytics: Trends In a Date Range",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/analytics/trends/tests?interval=1h&start=2019-03-10T12:00:00Z&end=2019-03-20T12:00:00Z",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"analytics",
+						"trends",
+						"tests"
+					],
+					"query": [
+						{
+							"key": "time_range",
+							"value": "1h",
+							"disabled": true
+						},
+						{
+							"key": "interval",
+							"value": "1h"
+						},
+						{
+							"key": "start",
+							"value": "2019-03-10T12:00:00Z"
+						},
+						{
+							"key": "end",
+							"value": "2019-03-20T12:00:00Z"
+						}
+					]
+				},
+				"description": "Query the trends endpoint with a specific date range and a 1hr interval"
+			},
+			"response": []
+		},
+		{
+			"name": "Analytics: Aggregate Errors",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/analytics/trends/errors?start=2019-03-10T12:00:00Z&end=2019-03-20T12:00:00Z&scope=organization",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"analytics",
+						"trends",
+						"errors"
+					],
+					"query": [
+						{
+							"key": "time_range",
+							"value": "1h",
+							"disabled": true
+						},
+						{
+							"key": "interval",
+							"value": "1h",
+							"disabled": true
+						},
+						{
+							"key": "start",
+							"value": "2019-03-10T12:00:00Z"
+						},
+						{
+							"key": "end",
+							"value": "2019-03-20T12:00:00Z"
+						},
+						{
+							"key": "scope",
+							"value": "organization"
+						}
+					]
+				},
+				"description": "Aggregrate all errors in a specific time range"
+			},
+			"response": []
+		},
+		{
+			"name": "Analytics: Aggregate Test Build Data",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/analytics/trends/tests?interval=1d&start=2019-03-10T12:00:00Z&end=2019-03-20T12:00:00Z&scope=organization&build={{BUILD_ID}}&size=15",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"analytics",
+						"trends",
+						"tests"
+					],
+					"query": [
+						{
+							"key": "time_range",
+							"value": "1h",
+							"disabled": true
+						},
+						{
+							"key": "interval",
+							"value": "1d"
+						},
+						{
+							"key": "start",
+							"value": "2019-03-10T12:00:00Z"
+						},
+						{
+							"key": "end",
+							"value": "2019-03-20T12:00:00Z"
+						},
+						{
+							"key": "scope",
+							"value": "organization"
+						},
+						{
+							"key": "build",
+							"value": "{{BUILD_ID}}"
+						},
+						{
+							"key": "size",
+							"value": "15"
+						}
+					]
+				},
+				"description": "Aggregate specific build test data based on name and/or other parameters, and return the last 15 results"
+			},
+			"response": []
+		},
+		{
+			"name": "Analytics: Filter by Os, Build, and Test Name",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{SAUCE_USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{SAUCE_ACCESS_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://saucelabs.com/rest/v1/analytics/insights/test-metrics?interval=1d&start={{START_DATE}}&end={{END_DATE}}&scope=organization&build={{BUILD_ID}}&query={{TEST_NAME}}&os={{PLATFORM_NAME}}",
+					"protocol": "https",
+					"host": [
+						"saucelabs",
+						"com"
+					],
+					"path": [
+						"rest",
+						"v1",
+						"analytics",
+						"insights",
+						"test-metrics"
+					],
+					"query": [
+						{
+							"key": "interval",
+							"value": "1d"
+						},
+						{
+							"key": "start",
+							"value": "{{START_DATE}}"
+						},
+						{
+							"key": "end",
+							"value": "{{END_DATE}}"
+						},
+						{
+							"key": "scope",
+							"value": "organization"
+						},
+						{
+							"key": "build",
+							"value": "{{BUILD_ID}}"
+						},
+						{
+							"key": "query",
+							"value": "{{TEST_NAME}}"
+						},
+						{
+							"key": "time_range",
+							"value": "1h",
+							"disabled": true
+						},
+						{
+							"key": "os",
+							"value": "{{PLATFORM_NAME}}"
+						}
+					]
+				},
+				"description": "Query the test-metrics endpoint to filter tests based on the OS value"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{SAUCE_ACCESS_KEY}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{SAUCE_USERNAME}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "0db66916-48f1-4706-b48c-f7f0f292b0e4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "3228d8fe-4fab-44ac-b22e-ccf2bbebfeff",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "b61a5b23-4e95-48f6-939e-77c7f8d697fb",
+			"key": "SAUCE_USERNAME",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "30540788-9bfd-4f71-b402-fd4bcc2beada",
+			"key": "SAUCE_ACCESS_KEY",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "8152057d-072e-4aa8-93eb-f995098d17e6",
+			"key": "SAUCE_SUBACCOUNT",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "b0eb9434-5679-4388-9936-8db32d56a98e",
+			"key": "JOB_ID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "5a7a0658-7f3d-4da4-b713-41ee096540fe",
+			"key": "TUNNEL_ID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "d23088f8-3115-40c2-bd58-e4ea91e9defb",
+			"key": "BUILD_ID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "ecc5db94-c968-4644-852b-31849da61844",
+			"key": "TEST_NAME",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "d2d21920-646c-4109-a7db-6dcb062701c2",
+			"key": "PLATFORM_NAME",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "a8646776-c31e-4516-8917-decb116b4d08",
+			"key": "START_DATE",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "df62eda4-ccef-464f-b63d-66f9b6b6b067",
+			"key": "END_DATE",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

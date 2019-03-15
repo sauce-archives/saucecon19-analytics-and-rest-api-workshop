@@ -1,90 +1,280 @@
-#Exercise 1: Accessing the REST API
-## Part One: Gather Your SauceLabs.com Credentials
+# Exercise 5: Analytics API and Data Visualization
 
-1. Checkout branch `01_access_api`
-2. Open an internet browser and login to [www.saucelabs.com](https://www.saucelabs.com)
-3. Open our **Account** tab and navigate to the **User Settings** section
-4. Copy and paste your **Username** and Sauce Labs **Access Key** to the local clipboard
-5. In your IDE or a command terminal run the following commands and replace the values with the data copied to the clipboard:
-    ###### Mac OSX:
+In this exercise we use the analytics API, specifically the `trends` and `test-metrics` endpoints, to visualize our data and gain insights from out test runs.
+
+In order to complete this exercise we need to import the [chart.js](https://www.chartjs.org/) library.
+
+##### Example Manual Requests:
+
+###### Query tests that ran in 1 hour intervals for the past 24 hours:
+
+```
+curl -u $SAUCE_USERNAME:$SAUCE_ACCESS_KEY \
+"https://saucelabs.com/rest/v1/analytics/trends/tests?interval=1h&time_range=1d" | jq
+```
+
+###### Response:
+This is the response if there were no test runs in the past 24 hours:
+```
+{
+  "meta": {
+    "status": 200
+  },
+  "buckets": [],
+  "metrics": {
+    "browser": {},
+    "error": {},
+    "fail": {},
+    "os": {},
+    "owner": {},
+    "status": {
+      "complete": 127,
+      "errored": 0,
+      "failed": 0,
+      "passed": 0
+    }
+  }
+}
+```
+
+This is an example response with actual test data:
+
+```
+{
+  "meta": {
+    "status": 200
+  },
+  "buckets": [
+    {
+      "timestamp": 1552672800000,
+      "datetime": "2019-03-15T18:00:00.000Z",
+      "count": 12,
+      "aggs": {
+        "browser": [
+          {
+            "name": "Chrome 54.0",
+            "count": 2
+          },
+          {
+            "name": "Edge 14.14393",
+            "count": 2
+          },
+          {
+            "name": "Firefox 49.0",
+            "count": 2
+          },
+          {
+            "name": "Firefox 64.0",
+            "count": 2
+          },
+          {
+            "name": "Internet Explorer 11.0",
+            "count": 2
+          },
+          {
+            "name": "Safari 10.0",
+            "count": 2
+          }
+        ],
+        "browserError": [],
+        "browserFail": [],
+        "os": [
+          {
+            "name": "Windows 10",
+            "count": 4
+          },
+          {
+            "name": "Windows 7",
+            "count": 4
+          },
+          {
+            "name": "OS X El Capitan (10.11)",
+            "count": 2
+          },
+          {
+            "name": "OS X Yosemite (10.10)",
+            "count": 2
+          }
+        ],
+        "osError": [],
+        "osFail": [],
+        "owner": [
+          {
+            "name": "xxxxxx",
+            "count": 12
+          }
+        ],
+        "status": [
+          {
+            "name": "passed",
+            "count": 12
+          }
+        ]
+      }
+    }
+  ],
+  "metrics": {
+    "browser": {
+      "Chrome 54.0": 2,
+      "Edge 14.14393": 2,
+      "Firefox 49.0": 2,
+      "Firefox 64.0": 2,
+      "Internet Explorer 11.0": 2,
+      "Safari 10.0": 2
+    },
+    "error": {},
+    "fail": {},
+    "os": {
+      "OS X El Capitan (10.11)": 2,
+      "OS X Yosemite (10.10)": 2,
+      "Windows 10": 4,
+      "Windows 7": 4
+    },
+    "owner": {
+      "jtack4970": 12
+    },
+    "status": {
+      "complete": 0,
+      "errored": 0,
+      "failed": 0,
+      "passed": 12
+    }
+  }
+
+```
+##### Example Programmatic Request:
+In this example we will:
+* Get the `trends` API data
+* Count the amount of browsers and browser failures
+* Display the data using `chart.js`
+
+## Part One: `getTrends`
+
+1. Checkout branch `05_analytics_api`
+2. Open `js-examples/trends.js` and create the following constants:
     ```
-    $ export SAUCE_USERNAME="your saucelabs username"
-    $ export SAUCE_ACCESS_KEY="your saucelabs API access Key"
+    const username = process.env.SAUCE_USERNAME;
+    const accessKey = process.env.SAUCE_ACCESS_KEY;
+    const trendsAPI = "saucelabs.com/rest/v1/analytics/trends/tests?interval=2h&time_range=1d";
+    const sauceURL = 'https://' + username + ':' + accessKey + '@' + trendsAPI;
+    const axios = require("axios");
     ```
-    ###### Windows:
+3. Create a function expression called `getTrends` with the following `try` `catch` block:
     ```
-    > set SAUCE_USERNAME="your saucelabs username"
-    > set SAUCE_ACCESS_KEY="your saucelabs API access Key"
+   const getTrends = async () => {
+        try {
+            response = await axios.get(sauceURL)
+            console.log(response.data)
+            return response
+        } catch (error) {
+            console.log(error)
+        }
+    }
     ```
-    > To set an environment variables permanently in Windows, you must append it to the `PATH` variable.
-    > Go to "Control Panel > System > Windows version > Advanced System Settings > Environment Variables > System Variables > Edit > New. Then enter the "Name" and "Value"
-6. Test the environment variables
-    ###### Mac OSX:
+4. Call the function, test with `node` and check the response:
     ```
-    $ echo $SAUCE_USERNAME
-    $ echo $SAUCE_ACCESS_KEY
+    getTrends()
     ```
-    ###### Windows:
     ```
-    echo %SAUCE_USERNAME%
-    echo %SAUCE_ACCESS_KEY%
+    node js-examples/trends.js
     ```
     
-    > To refresh a bash shell if you don't see the values run any of the following commands: 
-    >  * `$ source ~/.bashrc`
-    >  * `$ source ~/.bash_profile`
-    >  * `$ source /etc/profile`
-        
+## Part Two: `countBrowsers` and `countBrowserFailures`
+1. Create a new function expression called `countBrowsers`:
+    ```
+    const countBrowsers = async () => {
+        const browsers = await getTrends()
+    }
+    ```
+2. Add the following promise syntax to return the `metrics` object and then target the `browser` object:
+    ```
+    const countBrowsers = async () => {
+        const browsers = await getTrends()
+            .then(response => {
+                if (response.data.metrics.browser) {
+                    myBrowsers = response.data.metrics.browser
+                    console.log(`Got ${Object.entries(myBrowsers).length} browser types`)
+                    console.log(myBrowsers)
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+    ```
+3. Repeat step 1 through 2 and create a similar function expression: `browserFailures`:
+4. Delete the `getTrends` function call and call the new functions.
+    ```
+    countBrowsers()
+    countBrowserFailures()
+    ```
+    Then check the response:
+    ```
+    node js-examples/trends.js
+    ```
+## Part Three: Using `Chart.js`
 
-
-## Part Two: Set Envrionment Variables
-1. Open `index.js` in your IDE or editor
-2. Set the following variables
+In the final step in this exercise we're going to use `chart.js` and `jquery` to display test trend data:
+1. Open `js-examples/chart.js` and set the `$(document)` initialization with the following `function()`
     ```
-    var username = process.env.SAUCE_USERNAME;
-    var accessKey = process.env.SAUCE_ACCESS_KEY;
+    $(document).ready(function() {
+        const options = {
+            type: 'bar',
+            data: {
+                labels: ["Beta Value", "Charlie Value", "Delta Value"],
+                datasets: [{
+                    label: 'Awesome Dataset',
+                    data: [ 302, 175, 50],
+                    backgroundColor: "rgba(75, 192, 192, 1)"
+                }]
+            }
+        };
     ```
-3. Set a variable for the baseURL, and the test endpoint of the Sauce Labs RESTAPI
+2. Then set the following constants that represent static browser data:
     ```
-    var baseURL = 'https://' + username + ':' + accessKey + '@';
-    var userAPI =  'saucelabs.com/rest/v1/users/' + username;
+    const testChart = new Chart($("#testChart"), options);
+        const data = [
+            {
+                'Chrome 54.0': 5,
+                'Edge 14.14393': 5,
+                'Firefox 49.0': 5,
+                'Firefox 64.0': 5,
+                'Internet Explorer 11.0': 5,
+                'Safari 10.1': 5
+            }
+        ];
+        options.data.labels = [];
+        options.data.datasets = [{
+            label: 'Tests by Browser',
+            data: [],
+            backgroundColor: "rgba(75, 192, 192, 1)"
+        }];
     ```
-4. Set a constructor function to test the REST API:
-
+3. Create the following `for` loop:
     ```
-    const axios = require("axios");
-    const testAPI = async () => {
-        try {
-            response = await axios.get(baseURL + userAPI);
-            console.log(response.data);
+    for (var i in data) {
+            for (var y in data[i]) {
+                if (i == 0) {
+                    options.data.labels.push(y);
+                }
+                options.data.datasets[i].data.push(data[i][y]);
+            }
         }
-        catch (error)
-        {
-            console.log(error);
-        }
-    };
-    testAPI();
+        testChart.update();
+    });
     ```
-    > `axios` is an external library used for constructing [Promise based](https://medium.com/dev-bits/writing-neat-asynchronous-node-js-code-with-promises-32ed3a4fd098) HTTP requests, specifically for consuming exteral REST API endpoints. Click the [following link](https://www.npmjs.com/package/axios) for more information on the `axios` library.
-5. Run the function using the IDE commands or:
+4. Repeat the same steps to render `browserFailures`
+    
+    > to see the finished examples, use `git checkout 06_complete_examples`
+    
+5. Open `index.html` and set your script source as: `chart.js`:
     ```
-    node index.js
+    <head>
+        ...
+        <script src="js-examples/chart.js"></script>
+        ...
+    </head>
     ```
-5. The console output should display a JSON response like the following:
-    ```
-    { username: 'SAUCE_USERNAME',
-      vm_lockdown: false,
-      new_email: null,
-      last_name: 'Your Last Name',
-      tunnels_lockdown: false,
-      parent: null,
-      subaccount_limit: 3,
-      team_management: false,
-      creation_time: 1543341104,
-      user_type: 'invoiced',
-      monthly_minutes: { manual: 'infinite', automated: 'infinite' },
-      prevent_emails: [ 'marketing', 'billing' ],
-      performance_enabled: false,
-      is_admin: null,
-    ...  
-    ```
+6. Launch `index.html` in a local web browser to see the chart data:
+    
+    ![Chart Data](images/chart-data.png)
