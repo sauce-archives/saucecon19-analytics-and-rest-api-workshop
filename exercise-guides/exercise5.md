@@ -1,4 +1,4 @@
-#Exercise 5: Analytics API and Data Visualization
+# Exercise 5: Analytics API and Data Visualization
 
 In this exercise we use the analytics API, specifically the `trends` and `test-metrics` endpoints, to visualize our data and gain insights from out test runs.
 
@@ -151,7 +151,7 @@ In this example we will:
 ## Part One: `getTrends`
 
 1. Checkout branch `05_analytics_api`
-2. Open `trends.js` and create the following constants:
+2. Open `js-examples/trends.js` and create the following constants:
     ```
     const username = process.env.SAUCE_USERNAME;
     const accessKey = process.env.SAUCE_ACCESS_KEY;
@@ -161,23 +161,22 @@ In this example we will:
     ```
 3. Create a function expression called `getTrends` with the following `try` `catch` block:
     ```
-    const getTrends = async () => {
+   const getTrends = async () => {
         try {
             response = await axios.get(sauceURL)
             console.log(response.data)
-            alert(JSON.stringify(response))
             return response
         } catch (error) {
             console.log(error)
         }
     }
     ```
-4. Call the function and check the response:
+4. Call the function, test with `node` and check the response:
     ```
     getTrends()
     ```
     ```
-    node trends.js
+    node js-examples/trends.js
     ```
     
 ## Part Two: `countBrowsers` and `countBrowserFailures`
@@ -189,27 +188,13 @@ In this example we will:
     ```
 2. Add the following promise syntax to return the `metrics` object and then target the `browser` object:
     ```
-    .then(response => {
-        if (response.data.metrics.browser) {
-            myBrowsers = response.data.metrics.browser
-            console.log(`Got ${Object.entries(myBrowsers).length} browser types`)
-            console.log(myBrowsers)
-        }
-    })
-    .catch(error => {
-        console.log(error)
-    })
-    ```
-3. Repeat step 1 through 2 for `browserFailures`:
-    ```
-    const countBrowserFailures = async () => {
-        const browserFailures = await getTrends()
+    const countBrowsers = async () => {
+        const browsers = await getTrends()
             .then(response => {
-                if (response.data.metrics.browserFail) {
-                    myFailures = response.data.metrics.browserFail
-                    console.log(`${Object.entries(myFailures).length} of those browsers failed`
-                    )
-                    console.log(myFailures)
+                if (response.data.metrics.browser) {
+                    myBrowsers = response.data.metrics.browser
+                    console.log(`Got ${Object.entries(myBrowsers).length} browser types`)
+                    console.log(myBrowsers)
                 }
             })
             .catch(error => {
@@ -217,6 +202,7 @@ In this example we will:
             })
     }
     ```
+3. Repeat step 1 through 2 and create a similar function expression: `browserFailures`:
 4. Delete the `getTrends` function call and call the new functions.
     ```
     countBrowsers()
@@ -224,12 +210,12 @@ In this example we will:
     ```
     Then check the response:
     ```
-    node trends.js
+    node js-examples/trends.js
     ```
 ## Part Three: Using `Chart.js`
 
 In the final step in this exercise we're going to use `chart.js` and `jquery` to display test trend data:
-1. Open `chart.js` and set the `$(document)` initialization with the following `function()`
+1. Open `js-examples/chart.js` and set the `$(document)` initialization with the following `function()`
     ```
     $(document).ready(function() {
         const options = {
@@ -277,48 +263,16 @@ In the final step in this exercise we're going to use `chart.js` and `jquery` to
         testChart.update();
     });
     ```
-4. Repeat the same steps for `browserFailures`, for example:
-    ```
-    $(document).ready(function() {
-        var options = {
-            type: 'bar',
-            data: {
-                labels: ["Beta Value", "Charlie Value", "Delta Value"],
-                datasets: [{
-                    label: 'Awesome Dataset',
-                    data: [ 302, 175, 50],
-                    backgroundColor: "rgba(75, 192, 192, 1)"
-                }]
-            }
-        };
-        var failureChart = new Chart($("#failureChart"), options);
-        var data = [{ 'Firefox 49.0': 1, 'Safari 10.1': 1 }];
-        options.data.labels = [];
-        options.data.datasets = [{
-            label: 'Test Failures by Browser',
-            data: [],
-            backgroundColor: "rgba(222, 31, 24, 1)"
-        }];
+4. Repeat the same steps to render `browserFailures`
     
-        for (var i in data) {
-            for (var y in data[i]) {
-                if (i == 0) {
-                    options.data.labels.push(y);
-                }
-                options.data.datasets[i].data.push(data[i][y]);
-            }
-        }
-        failureChart.update();
-    });
-    ```
+    > to see the finished examples, use `git checkout 06_complete_examples`
+    
 5. Open `index.html` and set your script source as: `chart.js`:
     ```
     <head>
-        <title>Test Charts</title>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="chart.js"></script>
-        <link rel="stylesheet" type="text/css" href="style.css">
+        ...
+        <script src="js-examples/chart.js"></script>
+        ...
     </head>
     ```
 6. Launch `index.html` in a local web browser to see the chart data:
