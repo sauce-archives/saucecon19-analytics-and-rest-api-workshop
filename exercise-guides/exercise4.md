@@ -1,7 +1,7 @@
 # Exercise 4: Managing User Concurrency
 In this exercise we use the account API combined with our activity API 
 in order to quickly grab the concurrency details for a given user. Once we have the data then we can perform various actions, for example:
-* Breakdown VM concurreny in a chart
+* Breakdown VM concurrency in a chart
 * Offload data to an external database
 * Use `Math.` to calculate if distribution accurately reflects total user count
 
