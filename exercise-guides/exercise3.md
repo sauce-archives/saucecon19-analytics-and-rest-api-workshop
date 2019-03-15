@@ -131,5 +131,5 @@ In order to update the last 10 jobs, we have to create a constant that:
     
 9. Use `git stash` or `git commit` to save or delete your changes and checkout the next branch to proceed to the next exercise:
     ```
-    git checkout 04_manage_concurrency
+    git checkout 04_get_concurrency
     ```
