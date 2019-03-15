@@ -1,4 +1,4 @@
-#Exercise 1: Accessing the REST API
+# Exercise 1: Accessing the REST API
 ## Part One: Gather Your SauceLabs.com Credentials
 
 1. Checkout branch `01_access_api`
@@ -48,18 +48,18 @@ https://saucelabs.com/rest/v1/users/$SAUCE_USERNAME
 ```
 ##### Programmatic Example:
 
-1. Open `users.js` in your IDE or editor
-2. Set the following variables
+1. Open `js-examples/users.js` in your IDE or editor
+2. Set the following constants:
     ```
     const username = process.env.SAUCE_USERNAME;
     const accessKey = process.env.SAUCE_ACCESS_KEY;
     ```
-3. Set a variable for the baseURL, and the test endpoint of the Sauce Labs RESTAPI
+3. Set constants for the baseURL, and the `user` endpoint of the Sauce Labs REST API
     ```
     const baseURL = 'https://' + username + ':' + accessKey + '@';
     const userAPI =  'saucelabs.com/rest/v1/users/' + username;
     ```
-4. Set a constructor function to test the REST API:
+4. Set a function expression our REST API test:
 
     ```
     const axios = require("axios");
@@ -76,9 +76,9 @@ https://saucelabs.com/rest/v1/users/$SAUCE_USERNAME
     testAPI();
     ```
     > `axios` is an external library used for constructing [Promise based](https://medium.com/dev-bits/writing-neat-asynchronous-node-js-code-with-promises-32ed3a4fd098) HTTP requests, specifically for consuming exteral REST API endpoints. Click the [following link](https://www.npmjs.com/package/axios) for more information on the `axios` library.
-5. Run the function using the IDE commands or:
+5. Run the script using node commands:
     ```
-    node index.js
+    node js-examples/users.js
     ```
 6. The console output should display a JSON response like the following:
     ```

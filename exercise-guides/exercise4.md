@@ -66,7 +66,7 @@ For this example we're going to:
 
 ## Part One: **`getSubaccounts`**
 1. Checkout branch `04_get_concurrency`
-2. Open `test-activity.js` and declare the following constants:
+2. Open `js-examples/test-activity.js` and declare the following constants:
     ```
     const username = process.env.SAUCE_USERNAME;
     const accessKey = process.env.SAUCE_ACCESS_KEY;
@@ -95,7 +95,7 @@ For this example we're going to:
     getSubAccounts()
     ```
     ```
-    node test-activity.js 
+    node js-examples/test-activity.js 
     ```
     ###### Example Response:
     ```
@@ -192,7 +192,7 @@ For this example we're going to:
     ```
     Run the script to see the results:
     ```
-    node test-activity.js
+    node js-examples/test-activity.js
     ```
     ###### Example Response:
     
