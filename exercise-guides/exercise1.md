@@ -3,7 +3,10 @@
 
 1. Checkout branch `01_access_api`
 2. Open an internet browser and login to [www.saucelabs.com](https://www.saucelabs.com)
-3. Open our **Account** tab and navigate to the **User Settings** section
+3. Open our **Account** tab and navigate to the **User Settings** section:
+    
+    ![User Settings](images/user-settings.png)
+    
 4. Copy and paste your **Username** and Sauce Labs **Access Key** to the local clipboard
 5. In your IDE or a command terminal run the following commands and replace the values with the data copied to the clipboard:
     ###### Mac OSX:
@@ -48,13 +51,13 @@ https://saucelabs.com/rest/v1/users/$SAUCE_USERNAME
 1. Open `users.js` in your IDE or editor
 2. Set the following variables
     ```
-    var username = process.env.SAUCE_USERNAME;
-    var accessKey = process.env.SAUCE_ACCESS_KEY;
+    const username = process.env.SAUCE_USERNAME;
+    const accessKey = process.env.SAUCE_ACCESS_KEY;
     ```
 3. Set a variable for the baseURL, and the test endpoint of the Sauce Labs RESTAPI
     ```
-    var baseURL = 'https://' + username + ':' + accessKey + '@';
-    var userAPI =  'saucelabs.com/rest/v1/users/' + username;
+    const baseURL = 'https://' + username + ':' + accessKey + '@';
+    const userAPI =  'saucelabs.com/rest/v1/users/' + username;
     ```
 4. Set a constructor function to test the REST API:
 

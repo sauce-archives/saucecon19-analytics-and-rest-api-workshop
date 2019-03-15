@@ -69,24 +69,60 @@ Response Example:
     ```
 3. Add the `createAccounts()` function at the bottom of the script, then run the script using `node accounts.js`. You should see output like the following:
     ```
-    
+    [  
+        {  
+            "username":"Toni13",
+            "password":"UxEpElUzFKsowes",
+            "name":"Rebeka Anderson V",
+            "email":"Jack.Abshire@hotmail.com"
+        },
+        {  
+            "username":"Estella.Blick29",
+            "password":"Ae3nz2yPf_ZxpX9",
+            "name":"Anissa Klocko",
+            "email":"Fidel.Miller@gmail.com"
+        },
+        {  
+            "username":"Gabe_Hegmann71",
+            "password":"Ng8vdgCCMEnJve3",
+            "name":"Danielle Schimmel",
+            "email":"Vita22@yahoo.com"
+        }
+    ]
     ```
-4. Send an `POST` request to the REST endpoint using the `axios` library:
+4. Unfortunately the Sauce Labs Account Endpoint cannot accept a JSON Array as the payload, so we must modify our code to send one JSON object per Web API call. 
+Add a `POST` request using the `axios` library at the end of each iteration like so:
     ```
-    console.log(newFaker)
-    axios({
-            method: 'post',
-            url: url,
-            data: newFaker,
-            config: {headers: {'Content-Type': 'multipart/form-data'}}
-        })
-            .then(function (response){
-                console.log(response);
+    for (i = 0; i <= 10; i++) {
+            const data = {};
+            data.username = faker.fake("{{internet.userName}}");
+            data.password = faker.fake("{{internet.password}}");
+            data.name = faker.fake("{{name.findName}}");
+            data.email = faker.fake("{{internet.email}}");
+            JSON.stringify(data);
+            axios({
+                method: 'post',
+                url: url,
+                auth: {
+                    username: username,
+                    password: accessKey
+                },
+                config: {
+                    headers: {
+                        'Content-Type': 'application-json'
+                    }
+                },
+                data: data
             })
-            .catch(function (error) {
-                console.log(error);
-            });
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
     };
+    createAccounts();
     ```
 5. Run the script and you should see a similar output as before.
     > If you receive a `400` bad request response, it could be for a number of reasons:
