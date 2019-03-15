@@ -1,8 +1,9 @@
-#Exercise 2: Team Management
+# Exercise 2: Team Management
 > **Disclaimer**:
- > You must have an enterprise account with admin privileges to conduct part one of this exercise. 
+> You must have an enterprise account with admin privileges to conduct part one of this exercise. 
  
- > For the second part, you can try and reset your own API Key however you will need to reset your ENV variables to the new values
+> For the second part, you can try and reset your own API Key however you will need to reset your ENV variables to the new values
+
 ## Part One: Create Sub Accounts
 In this exercise we use the account API to create sub-accounts within our organization.
 ##### Example Manual Request (one sub-account):
@@ -51,23 +52,32 @@ Response Example:
 ##### Programmatic Example (multiple sub-accounts):
  
  > This exercise uses the [Faker library](https://github.com/marak/Faker.js/)
+ 
 1. Checkout branch `02_team_management`
-2. In `accounts.js` add the following to iterate through a `for` loop and generate 10 fake users:
+2. In `js-examples/accounts.js` add the following constants:
+    ```
+    const username = process.env.SAUCE_USERNAME;
+    const accessKey = process.env.SAUCE_ACCESS_KEY;
+    const url = 'https://saucelabs.com/rest/v1/users/' + username;
+    const faker = require('faker');
+    const axios = require("axios");
+    ```
+2. Create the following function expression and iterate through a `for` loop and generate 10 fake users:
     ```
     const createAccounts = () => {
-        const accountNum = 10;
-        for (i = 0; i <= accountNum; i++) {
+        for (i = 0; i <= 10; i++) {
             const data = {};
             data.username = faker.fake("{{internet.userName}}");
             data.password = faker.fake("{{internet.password}}");
             data.name = faker.fake("{{name.findName}}");
             data.email = faker.fake("{{internet.email}}");
-            newFaker.push(data);
+            console.log(JSON.stringify(data);
         }
-        console.log(newFaker);
     };
     ```
-3. Add the `createAccounts()` function at the bottom of the script, then run the script using `node accounts.js`. You should see output like the following:
+3. Call the `createAccounts()` function at the bottom of the script, then run the script using `node accounts.js`. 
+
+    You should see output like the following:
     ```
     [  
         {  
@@ -90,10 +100,13 @@ Response Example:
         }
     ]
     ```
-4. Unfortunately the Sauce Labs Account Endpoint cannot accept a JSON Array as the payload, so we must modify our code to send one JSON object per Web API call. 
-Add a `POST` request using the `axios` library at the end of each iteration like so:
+    
+    Unfortunately the Sauce Labs Account Endpoint cannot accept a JSON Array as a payload, so we must modify our code to send one JSON object per Web API call. 
+
+4. Add a `POST` request using the `axios` library at the end of each iteration like so:
     ```
-    for (i = 0; i <= 10; i++) {
+    const createAccounts = () => {
+        for (i = 0; i <= 10; i++) {
             const data = {};
             data.username = faker.fake("{{internet.userName}}");
             data.password = faker.fake("{{internet.password}}");
@@ -115,14 +128,14 @@ Add a `POST` request using the `axios` library at the end of each iteration like
                 data: data
             })
                 .then(function (response) {
-                    console.log(response);
+                console.log(response);
                 })
                 .catch(function (error) {
-                    console.log(error);
+                console.log(error);
                 });
         }
-    };
-    createAccounts();
+        };
+        createAccounts();
     ```
 5. Run the script and you should see a similar output as before.
     > If you receive a `400` bad request response, it could be for a number of reasons:
@@ -140,7 +153,7 @@ curl -X POST -u $SAUCE_USERNAME:$SAUCE_ACCESS_KEY \
 https://saucelabs.com/rest/v1/users/$USERNAME/accesskey/change
 ```
 ##### Programmatic Example:
-1. Open `key-rotate.js` and add the following `axios` function:
+1. Open `js-examples/key-rotate.js` and add the following `axios` function:
     ```
     const axios = require('axios');
     const rotateAPIKey = () => {
@@ -158,7 +171,7 @@ https://saucelabs.com/rest/v1/users/$USERNAME/accesskey/change
     rotateAPIKey();
     ```
     ```
-    node key-rotate.js
+    node js-examples/key-rotate.js
     ```
     The following response should appear in the console:
     ```
