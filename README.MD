@@ -17,6 +17,7 @@ In order to complete these exercises you must complete the following prerequisit
 * Install NPM
 * Install an IDE (WebStorm, Atom etc.)
 * Setup Project
+* Install REST Client
 
 Once your test environment is up and running, refer to the [exercise guides](exercise-guides/getting-started.md) to begin the exercises.
 
@@ -99,11 +100,11 @@ integration/continuous development toolchain.
     ```
     cd saucecon2019-workshops
     ```
-    * Clone the project repository from [https://github.com/saucelabs-training/saucecon19-analytics-and-rest-api-worksop](https://github.com/saucelabs-training/saucecon19-analytics-and-rest-api-worksop).
+    * Clone the project repository from [https://github.com/saucelabs-training/saucecon19-analytics-and-rest-api-workshop](https://github.com/saucelabs-training/saucecon19-analytics-and-rest-api-workshop).
     ```
-    git clone https://github.com/saucelabs-training/saucecon19-analytics-and-rest-api-worksop
+    git clone https://github.com/saucelabs-training/saucecon19-analytics-and-rest-api-workshop
     ```
-    * Checkout branch `01_accessing_the_rest_api`
+    * Checkout branch `01_access_api`
     
 3. **Initialize `package.json`**
     * Either in a command terminal or in the IDE, run **`npm install`** to download all dependencies/libraries
@@ -111,3 +112,7 @@ integration/continuous development toolchain.
         ```
         npm install
         ```
+
+### (Optional) Install REST Client
+
+A RESTful client application can be helpful when trying to consume and modify API resources. In the workshop, we use [Postman](https://www.getpostman.com/downloads) to send and consume API request/responses.

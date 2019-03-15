@@ -1,4 +1,4 @@
-#Exercise 3: Updating Sauce Labs Jobs
+# Exercise 3: Updating Sauce Labs Jobs
 In this exercise we use the `update` job API in order to change a test visibility to `public` so that our team members (sub-accounts) can gain visibility.
 ##### Example Manual Requests:
 
@@ -50,26 +50,28 @@ For this example we're going to:
 
 ## Part One: **`getJobs`**
 1. Checkout branch `03_update_sauce_jobs`
-2. Open `update-jobs.js`
+2. Open `js-examples/update-jobs.js`
 3. Add the following code:
     ```
-    const username = process.env.SAUCE_USERNAME;
-    const accessKey = process.env.SAUCE_ACCESS_KEY;
-    const baseURL = 'https://' + username + ':' + accessKey + '@';
-    const jobAPI = 'saucelabs.com/rest/v1/' + username + '/jobs?limit=10';
-    const axios = require("axios");
-    const getJobs = async () => {
+   const username = process.env.SAUCE_USERNAME;
+   const accessKey = process.env.SAUCE_ACCESS_KEY;
+   const baseURL = 'https://' + username + ':' + accessKey + '@';
+   const jobAPI = 'saucelabs.com/rest/v1/' + username + '/jobs?limit=10';
+   const axios = require("axios");
+   const getJobs = async () => {
         try {
-            response = await axios.get(jobAPI)
+            response = await axios.get(baseURL + jobAPI);
             console.log(response.data);
-            return response
-        } catch (error) {
-            console.error(error)
+            return response;
         }
-    }
-    getJobs()
+        catch (error)
+        {
+            console.log(error);
+        }
+    };
+    getJobs();
     ```
-4. Test the script using `node update-job.js`. The script should print out the last 10 jobs—for example:
+4. Test the script using `node js-examples/update-job.js`. The script should print out the last 10 jobs—for example:
     ```
     [ { id: '99b33104d2524e5d9002e4294e7e4df7' },
       { id: '1e588e53a4d54a2e9b38250289b65c3e' },
@@ -82,12 +84,16 @@ For this example we're going to:
       { id: 'e02b75aedf96418f88cce878cb34a0a8' },
       { id: '3f5aaf89324d49cf8a57c061ef55f88d' } ]
     ```
+
 ## Part Two: **`updateJobVisibility`**
-In order to update the last 10 jobs, we have to create a constant that:
-    * grabs the JSON response from **`getJobs()`**
-    * iterate through each JSON object in the array
-    * send a **`PUT`** REST call to the update job API with `'{"put": true}'` in the request body
-5. Create the following `const`:
+
+In order to update the last 10 jobs, we have to create a function expression that:
+   
+* grabs the JSON response from **`getJobs()`**
+* iterate through each JSON object in the array
+* send a **`PUT`** REST call to the update job API with `{"put": true}` in the request body:
+
+1. Create the `updateJobVisibility` function expression:
     ```
     const updateJobVisibility = async() => {
         const json_array = await getJobs()
@@ -100,34 +106,58 @@ In order to update the last 10 jobs, we have to create a constant that:
         const url = 'https://saucelabs.com/rest/v1/' + username + '/jobs/' + jobID
     }
     ```
-7. Create an **`axios`** `PUT` request, and pass the username, accessKey, and set `public` to `**true**`:
+7. Create an **`axios`** `PUT` request, and pass the `username`, `accessKey`, and set `public` to `true`:
     ```
-    axios({
-        method: 'put',
-        url: url,
-        auth: {
-            username: username,
-            password: accessKey
-        },
-        config: {
-            headers: {
-                'Content-Type': 'application-json'
-            }
-        },
-        data: {
-            'public': true
-        },
-        }).then(function (response) {
+    const updateJobVisibility = async() => {
+        const json_array = await getJobs()
+        for (var i = 0; i < json_array.data.length; i++) {
+            /* Grab the Job IDs based on the position in the Array */
+            var jobID = json_array.data[i].id;
+            //console.log(JSON.stringify(jobID))
+            /* construct the url */
+            const url = 'https://saucelabs.com/rest/v1/' + username +  '/jobs/' + jobID;
+            //console.log(url)
+            /* construct the request using axios */
+            axios({
+                method: 'put',
+                url: url,
+                auth: {
+                    username: username,
+                    password: accessKey
+                },
+                config: {
+                    headers: {
+                        'Content-Type': 'application-json'
+                    }
+                },
+                data: {
+                    'public': true
+                },
+            }).then(function (response) {
                 console.log(response);
-        }).catch(function (error) {
+            }).catch(function (error) {
                 console.log(error);
-        });
+            });
+        }
+    }
+    updateJobVisibility()
     ```
-8. Test the script again—you should see the following response:
+8. Modify the `getJobs` function as follows:
     ```
-    node update-jobs.js
+    const getJobs = async () => {
+        try {
+            response = await axios.get(baseURL + jobAPI)
+            return response
+        } catch (error) {
+            console.error(error)
+        }
+    }
     ```
-    Check the job visibility in the saucelabs.com dashboard
+    Test using `node`:
+    ```
+    node js-examples/update-jobs.js
+    ```
+    Check the job visibility, for the jobs in question, in the saucelabs.com dashboard
     
 9. Use `git stash` or `git commit` to save or delete your changes and checkout the next branch to proceed to the next exercise:
     ```
