@@ -8,7 +8,7 @@ To get started execute the following commands in the Terminal application (OSX) 
 export SAUCE_USERNAME = "your saucelabs.com user"
 export SAUCE_ACCESS_KEY = "your saucelabs.com api key"
 ```
-> To find this information login to [saucelabs.com](www.saucelabs.com), go to your **Account** panel, and select **User Settings**. 
+> To find this information login to [saucelabs.com](www.saucelabs.com), go to your **Account** panel, and select **User Settings**.
 
 > Now you can copy and paste your username and access key to the clipboard
 
@@ -100,6 +100,3 @@ Query test insights in 2 hr intervals, for the last 5 days, and also filter spec
   ?interval=2h&time_range=5d&query=verifyCommentInputTest%20onWindows%20X%2008" \
   | jq '.' > insights.json
 ```
-
-
-  

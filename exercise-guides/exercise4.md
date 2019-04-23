@@ -1,5 +1,5 @@
 # Exercise 4: Managing User Concurrency
-In this exercise we use the account API combined with our activity API 
+In this exercise we use the account API combined with our activity API
 in order to quickly grab the concurrency details for a given user. Once we have the data then we can perform various actions, for example:
 * Breakdown VM concurrency in a chart
 * Offload data to an external database
@@ -19,6 +19,8 @@ https://saucelabs.com/rest/v1/users/USERNAME/subaccounts
 ```
 curl -u $SAUCE_USERNAME:$SAUCE_ACCESS_KEY \
 https://saucelabs.com/rest/v1.1/users/$SUBACCOUNT/concurrency
+# or
+sl getUserConcurrency $SUBACCOUNT
 ```
 
 ##### Example `concurrency` Response:
@@ -68,11 +70,8 @@ For this example we're going to:
 1. Checkout branch `04_get_concurrency`
 2. Open `js-examples/test-activity.js` and declare the following constants:
     ```
-    const username = process.env.SAUCE_USERNAME;
-    const accessKey = process.env.SAUCE_ACCESS_KEY;
-    const baseURL = 'https://' + username + ':' + accessKey + '@';
-    const subAccountAPI = 'saucelabs.com/rest/v1/users/' + username + '/subaccounts'
-    const axios = require("axios");
+    const SauceLabs = require("saucelabs");
+    const api = new SauceLabs();
     ```
 2. Create a function expression:
     ```
@@ -82,8 +81,8 @@ For this example we're going to:
 3. Add a `try` `catch` block that returns the JSON response from the `subaccounts` API
     ```
     try {
-        response = await axios.get(subAccountAPI);
-        console.log(response.data);
+        response = await api.getSubAccounts();
+        console.log(response);
         return response;
     }
     catch (error) {
@@ -95,7 +94,7 @@ For this example we're going to:
     getSubAccounts()
     ```
     ```
-    node js-examples/test-activity.js 
+    node js-examples/test-activity.js
     ```
     ###### Example Response:
     ```
@@ -178,7 +177,7 @@ For this example we're going to:
      })
     ```
 4. Use the promise syntax to log/return the concurrency objects
-     ```   
+     ```
      }).then(function (response) {
             console.log(response.data.concurrency.self);
             return response.data.concurrency
@@ -195,7 +194,7 @@ For this example we're going to:
     node js-examples/test-activity.js
     ```
     ###### Example Response:
-    
+
     ```
     { username: 'Marlee.Wuckert89',
       current: { manual: 0, mac: 0, overall: 0 },
@@ -207,4 +206,4 @@ For this example we're going to:
       current: { manual: 0, mac: 0, overall: 0 },
       allowed: { manual: 50, mac: 10, overall: 50 } }
     ...
-    ```    
+    ```

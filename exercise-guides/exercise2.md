@@ -1,7 +1,7 @@
 # Exercise 2: Team Management
 > **Disclaimer**:
-> You must have an enterprise account with admin privileges to conduct part one of this exercise. 
- 
+> You must have an enterprise account with admin privileges to conduct part one of this exercise.
+
 > For the second part, you can try and reset your own API Key however you will need to reset your ENV variables to the new values
 
 ## Part One: Create Sub Accounts
@@ -18,9 +18,10 @@ curl -X POST -u $SAUCE_USERNAME:$SAUCE_ACCESS_KEY \
 }' \
 https://saucelabs.com/rest/v1/users/$SAUCE_USERNAME
 ```
+
 Response Example:
 ```
-{  
+{
    "username":"jtizzle",
    "access_key":"xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
    "first_name":null,
@@ -31,7 +32,7 @@ Response Example:
    "user_type":"subaccount",
    "email":"xxxx@saucelabs.com",
    "last_name":null,
-   "ancestor_concurrency_limit":{  
+   "ancestor_concurrency_limit":{
       "mac":10,
       "scout":50,
       "overall":50,
@@ -39,7 +40,7 @@ Response Example:
    },
    "manual_minutes":"infinite",
    "can_run_manual":true,
-   "concurrency_limit":{  
+   "concurrency_limit":{
       "mac":10,
       "scout":50,
       "overall":50,
@@ -50,9 +51,9 @@ Response Example:
 }
 ```
 ##### Programmatic Example (multiple sub-accounts):
- 
+
  > This exercise uses the [Faker library](https://github.com/marak/Faker.js/)
- 
+
 1. Checkout branch `02_team_management`
 2. In `js-examples/accounts.js` add the following constants:
     ```
@@ -75,24 +76,24 @@ Response Example:
         }
     };
     ```
-3. Call the `createAccounts()` function at the bottom of the script, then run the script using `node accounts.js`. 
+3. Call the `createAccounts()` function at the bottom of the script, then run the script using `node accounts.js`.
 
     You should see output like the following:
     ```
-    [  
-        {  
+    [
+        {
             "username":"Toni13",
             "password":"UxEpElUzFKsowes",
             "name":"Rebeka Anderson V",
             "email":"Jack.Abshire@hotmail.com"
         },
-        {  
+        {
             "username":"Estella.Blick29",
             "password":"Ae3nz2yPf_ZxpX9",
             "name":"Anissa Klocko",
             "email":"Fidel.Miller@gmail.com"
         },
-        {  
+        {
             "username":"Gabe_Hegmann71",
             "password":"Ng8vdgCCMEnJve3",
             "name":"Danielle Schimmel",
@@ -100,8 +101,8 @@ Response Example:
         }
     ]
     ```
-    
-    Unfortunately the Sauce Labs Account Endpoint cannot accept a JSON Array as a payload, so we must modify our code to send one JSON object per Web API call. 
+
+    Unfortunately the Sauce Labs Account Endpoint cannot accept a JSON Array as a payload, so we must modify our code to send one JSON object per Web API call.
 
 4. Add a `POST` request using the `axios` library at the end of each iteration like so:
     ```
@@ -144,7 +145,7 @@ Response Example:
     > * there are errors in the `POST` data (e.g. invalid fields, email already in use, required fields missing etc.)
     > * saucelabs.com authentication error
     > * typos
-    
+
 ## Part Two: Resetting API Keys
 In this exercise we target a specific sub-account and reset the API Key.
 ##### Example Manual Request:
@@ -175,12 +176,12 @@ https://saucelabs.com/rest/v1/users/$USERNAME/accesskey/change
     ```
     The following response should appear in the console:
     ```
-    {  
+    {
        "accessKey":"xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
     }
     ```
-    > As a challenge, try to figure out how to programmatically reset all sub-account API Keys. 
-    
+    > As a challenge, try to figure out how to programmatically reset all sub-account API Keys.
+
     > This could be a nightly script that will aid you in rotating your user API Keys!
-    
+
     >Also, it's recommended that you delete your sub-accounts after this exercise so that you don't run into concurrency problems later
