@@ -6,20 +6,22 @@ In this exercise we use the `update` job API in order to change a test visibilit
 ```
 curl -u $SAUCE_USERNAME:$SAUCE_ACCESS_KEY \
 https://saucelabs.com/rest/v1/$SAUCE_USERNAME/jobs?limit=4
+# or
+sl listJobs $SAUCE_USERNAME --limit 4
 ```
 ###### Response:
 ```
-[  
-   {  
+[
+   {
       "id":"f54e7fc1580748bcbd56d0aa8b918f9d"
    },
-   {  
+   {
       "id":"963b6ecf3a5a4175842f94f7da3f6a0b"
    },
-   {  
+   {
       "id":"bffb7571cea34bbfb883786b46ad01ee"
    },
-   {  
+   {
       "id":"5f8e2ea80b52422f9c185263948a0313"
    }
 ]
@@ -30,12 +32,14 @@ curl -X PUT -u $SAUCE_USERNAME:$SAUCE_ACCESS_KEY \
 -H "Content-Type: application/json" \
 -d '{
 "public": "shared"
-}' \ 
+}' \
 https://saucelabs.com/rest/v1/$SAUCE_USERNAME/jobs/f54e7fc1580748bcbd56d0aa8b918f9d
+# or
+sl getJob $SAUCE_USERNAME f54e7fc1580748bcbd56d0aa8b918f9d
 ```
 ###### Response:
 ```
-{  
+{
    "browser_short_version":"11",
    "video_url":"https://assets.saucelabs.com/jobs/f54e7fc1580748bcbd56d0aa8b918f9d/video.mp4",
    ...
@@ -53,16 +57,13 @@ For this example we're going to:
 2. Open `js-examples/update-jobs.js`
 3. Add the following code:
     ```
-   const username = process.env.SAUCE_USERNAME;
-   const accessKey = process.env.SAUCE_ACCESS_KEY;
-   const baseURL = 'https://' + username + ':' + accessKey + '@';
-   const jobAPI = 'saucelabs.com/rest/v1/' + username + '/jobs?limit=10';
-   const axios = require("axios");
-   const getJobs = async () => {
+    const username = process.env.SAUCE_USERNAME;
+    const accessKey = process.env.SAUCE_ACCESS_KEY;
+    const api = new SauceLabs()
+    const getJobs = async () => {
         try {
-            response = await axios.get(baseURL + jobAPI);
-            console.log(response.data);
-            return response;
+            response = await api.listJobs(process.env.SAUCE_USERNAME, { limit: 4 });
+            console.log(response);
         }
         catch (error)
         {
@@ -88,7 +89,7 @@ For this example we're going to:
 ## Part Two: **`updateJobVisibility`**
 
 In order to update the last 10 jobs, we have to create a function expression that:
-   
+
 * grabs the JSON response from **`getJobs()`**
 * iterate through each JSON object in the array
 * send a **`PUT`** REST call to the update job API with `{"put": true}` in the request body:
@@ -158,7 +159,7 @@ In order to update the last 10 jobs, we have to create a function expression tha
     node js-examples/update-jobs.js
     ```
     Check the job visibility, for the jobs in question, in the saucelabs.com dashboard
-    
+
 9. Use `git stash` or `git commit` to save or delete your changes and checkout the next branch to proceed to the next exercise:
     ```
     git checkout 04_get_concurrency

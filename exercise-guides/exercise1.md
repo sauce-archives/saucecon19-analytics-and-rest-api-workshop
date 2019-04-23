@@ -4,9 +4,9 @@
 1. Checkout branch `01_access_api`
 2. Open an internet browser and login to [www.saucelabs.com](https://www.saucelabs.com)
 3. Open our **Account** tab and navigate to the **User Settings** section:
-    
+
     ![User Settings](images/user-settings.png)
-    
+
 4. Copy and paste your **Username** and Sauce Labs **Access Key** to the local clipboard
 5. In your IDE or a command terminal run the following commands and replace the values with the data copied to the clipboard:
     ###### Mac OSX:
@@ -32,12 +32,12 @@
     echo %SAUCE_USERNAME%
     echo %SAUCE_ACCESS_KEY%
     ```
-    
-    > To refresh a bash shell if you don't see the values run any of the following commands: 
+
+    > To refresh a bash shell if you don't see the values run any of the following commands:
     >  * `$ source ~/.bashrc`
     >  * `$ source ~/.bash_profile`
     >  * `$ source /etc/profile`
-        
+
 
 
 ## Part Two: Set Envrionment Variables
@@ -54,19 +54,16 @@ https://saucelabs.com/rest/v1/users/$SAUCE_USERNAME
     const username = process.env.SAUCE_USERNAME;
     const accessKey = process.env.SAUCE_ACCESS_KEY;
     ```
-3. Set constants for the baseURL, and the `user` endpoint of the Sauce Labs REST API
-    ```
-    const baseURL = 'https://' + username + ':' + accessKey + '@';
-    const userAPI =  'saucelabs.com/rest/v1/users/' + username;
-    ```
-4. Set a function expression our REST API test:
+3. Set a function expression our REST API test:
 
     ```
-    const axios = require("axios");
+    const SauceLabs = require("saucelabs").default;
+
     const testAPI = async () => {
+        const api = new SauceLabs()
         try {
-            response = await axios.get(baseURL + userAPI);
-            console.log(response.data);
+            response = await api.getUser(username);
+            console.log(response);
         }
         catch (error)
         {
@@ -82,7 +79,7 @@ https://saucelabs.com/rest/v1/users/$SAUCE_USERNAME
     ```
 6. The console output should display a JSON response like the following:
     ```
-    {  
+    {
        "username":"xxxxxx",
        "vm_lockdown":false,
        "new_email":null,
@@ -93,9 +90,9 @@ https://saucelabs.com/rest/v1/users/$SAUCE_USERNAME
        "team_management":false,
        "creation_time":1543341104,
        "user_type":"invoiced",
-       "monthly_minutes":{  
+       "monthly_minutes":{
           "manual":"infinite",
           "automated":"infinite"
        },
-    ...  
+    ...
     ```
